@@ -68,7 +68,6 @@ const Detials = props => {
   const setting = useSelector(state => state.setting);
 
   const data = useSelector(state => state.Items);
-  console.log(JSON.stringify(data));
 
   const getAdd = () => {
     const unsubscribe = interstitial.addAdEventListener(
@@ -129,6 +128,8 @@ const Detials = props => {
     let ActualSound;
     let y = data.length;
     if (count >= 0 && count <= y - 1) {
+      console.log(newData[count]);
+      console.log(newData[count].Image);
       ActualSound = newData[count].ActualSound;
       Imagess = `asset:/files/${newData[count].Image}`;
       Titel = newData[count].Title;

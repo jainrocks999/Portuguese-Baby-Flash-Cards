@@ -18,7 +18,6 @@ const HorizontalList = ({items}) => {
   const disapatch = useDispatch();
   const data = useSelector(state => state.Items);
   const getData = (cat, id) => {
-    console.log('run');
     disapatch({
       type: 'backSoundFromquestions/playWhenThePage',
       fromDetails: false,
@@ -38,6 +37,7 @@ const HorizontalList = ({items}) => {
               arr.push(row);
             }
             disapatch(addData(arr));
+            console.log(arr);
             disapatch(addCatNext({items, id: parseInt(id) + 1}));
             navigation.navigate(wr ? 'question' : 'details', {
               page: true,

@@ -84,7 +84,7 @@ const NextScreen = ({route}) => {
     <SafeAreaView style={{flex: 1}}>
       <ImageBackground
         style={{flex: 1}}
-        source={require('../../Assets4/settingscreen.png')}>
+        source={require('../../Assets4/setting_screen.png')}>
         <Header onPress2={() => setMut(!mute)} mute={mute} />
         <View
           style={{

@@ -48,7 +48,7 @@ const SettingScreen = props => {
   const [mute, setMute] = useState(muted);
   const quesion = useSelector(state => state.question);
   const setting = useSelector(state => state.setting);
-  console.log('these are serttings',setting);
+  console.log('these are serttings', setting);
   const backSound = useSelector(state => state.backsound);
   const Navigation = useNavigation();
   const dispatch = useDispatch();
@@ -144,7 +144,14 @@ const SettingScreen = props => {
       setToggleSwich(newVal);
     } else {
       await AsyncStorage.setItem('setting', JSON.stringify(togleSwitch));
-      setToggleSwich ({Voice:false,Videos:false,ActualVoice:false,RandomOrder:false,English:false,Swipe:false});
+      setToggleSwich({
+        Voice: false,
+        Videos: false,
+        ActualVoice: false,
+        RandomOrder: false,
+        English: false,
+        Swipe: false,
+      });
     }
   };
   useEffect(() => {
@@ -173,7 +180,7 @@ const SettingScreen = props => {
   return (
     <ImageBackground
       style={{flex: 1}}
-      source={require('../../Assets4/settingscreen.png')}>
+      source={require('../../Assets4/setting_screen.png')}>
       <Header onPress2={() => setMute(!mute)} mute={mute} />
       <ScrollView>
         <View

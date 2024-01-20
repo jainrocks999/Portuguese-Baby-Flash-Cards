@@ -84,18 +84,17 @@ const QuestionPage = props => {
     }
     let arr = [
       (track = {
-        url: require('../../asset2/clickon.mp3'), // Load media from the file system
+        url: 'asset:/files/clickon.mp3',
         title: item.Title,
         artist: 'eFlashApps',
 
         duration: null,
       }),
       (track2 = {
-        url: `asset:/files/${item.Sound}`, // Load media from the file system
+        url: `asset:/files/${item.Sound}`,
         title: item.Title,
         artist: 'eFlashApps',
-        // Load artwork from the file system:
-        //  artwork: require('../../asset2/clickon.mp3'),
+
         duration: null,
       }),
     ];

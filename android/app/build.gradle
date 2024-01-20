@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.eFlashEnglish"
+    namespace "com.eFlashPotuguese"
     defaultConfig {
-        applicationId "com.eFlashEnglish"
+        applicationId "com.eFlashPotuguese"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 52
