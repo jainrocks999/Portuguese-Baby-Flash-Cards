@@ -56,7 +56,7 @@ const NextScreen = ({route}) => {
           disapatch(addData(arr));
           disapatch(addCatNext({items: item.items, id: parseInt(id) + 1}));
           if (cat != 'link') {
-            navigation.navigate(wr ? 'question' : 'details', {
+            navigation.navigate(wr == 1 ? 'question' : 'details', {
               page: true,
               item: {items: item.items, id: parseInt(id) + 1},
             });

@@ -97,7 +97,7 @@ const Detials = props => {
 
   let newData;
 
-  if (setting.RandomOrder) {
+  if (setting.RandomOrder == 1) {
     const shuffledData = shuffle([...data]);
     newData = [...shuffledData];
   } else {
@@ -129,24 +129,27 @@ const Detials = props => {
     let y = data.length;
     if (count >= 0 && count <= y - 1) {
       console.log(newData[count]);
-      console.log(newData[count].Image);
+
       ActualSound = newData[count].ActualSound;
       Imagess = `asset:/files/${newData[count].Image}`;
       Titel = newData[count].Title;
       track = {
-        url: `asset:/files/${newData[count].Sound}`, // Load media from the file system
+        url: `asset:/files/${newData[count].Sound?.replace(/[- ]/g, '_')}`, // Load media from the file system
         title: Titel,
         artist: 'eFlashApps',
         // Load artwork from the file system:
-        artwork: `asset:/files/${newData[count].Sound}`,
+        artwork: `asset:/files/${newData[count].Sound?.replace(/ /g, '_')}`,
         duration: null,
       };
       track2 = {
-        url: `asset:/files/${newData[count].ActualSound}`, // Load media from the file system
+        url: `asset:/files/${newData[count].ActualSound?.replace(
+          /[- ]/g,
+          '_',
+        )}`, // Load media from the file system
         title: Titel,
         artist: 'eFlashApps',
         // Load artwork from the file system:
-        artwork: `asset:/files/${newData[count].Sound}`,
+        artwork: `asset:/files/${newData[count].Sound?.replace(/ /g, '_')}`,
         duration: null,
       };
     } else if (count < 0) {
@@ -157,19 +160,21 @@ const Detials = props => {
     }
     setImages(Imagess);
     setTitle(Titel);
-    if (ActualSound && setting.ActualVoice && setting.Voice) {
+
+    if (ActualSound && setting.ActualSound == 1 && setting.Voice == 1) {
       setMusic([track2, track]);
-    } else if (ActualSound && setting.ActualVoice) {
+    } else if (ActualSound && setting.ActualSound == 1) {
       setMusic(track2);
     } else {
       setMusic(track);
     }
+
     if (isSetup) {
-      if (ActualSound && setting.ActualVoice && setting.Voice) {
+      if (ActualSound && setting.ActualSound == 1 && setting.Voice == 1) {
         await TrackPlayer.add([track2, track]);
-      } else if (ActualSound && setting.ActualVoice) {
+      } else if (ActualSound && setting.ActualSound == 1) {
         await TrackPlayer.add(track2);
-      } else if (setting.Voice) {
+      } else if (setting.Voice == 1) {
         await TrackPlayer.add(track);
       }
     }
@@ -199,9 +204,11 @@ const Detials = props => {
     <GestureRecognizer
       style={{flex: 1}}
       onSwipeLeft={() =>
-        setting.Swipe && count != data.length && setCount(count + 1)
+        setting.Swipe == 1 && count != data.length && setCount(count + 1)
       }
-      onSwipeRight={() => setting.Swipe && count > 0 && setCount(count - 1)}>
+      onSwipeRight={() =>
+        (setting.Swipe == 1) == 1 && count > 0 && setCount(count - 1)
+      }>
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.header}>
           <TouchableOpacity
@@ -216,7 +223,7 @@ const Detials = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text style={styles.Titel}>{setting.English ? Title : ''}</Text>
+          <Text style={styles.Titel}>{setting.English == 1 ? Title : ''}</Text>
           <TouchableOpacity
             onPress={async () => {
               await TrackPlayer.reset();
@@ -250,7 +257,7 @@ const Detials = props => {
           )}
         </View>
         <View style={styles.btnContainer}>
-          {!setting.Swipe && (
+          {setting.Swipe == 0 && (
             <TouchableOpacity
               onPress={async () => {
                 setCount(count - 1);
@@ -274,12 +281,12 @@ const Detials = props => {
               paly();
             }}>
             <Image
-              style={[styles.btn2, setting.Swipe && {marginLeft: '60%'}]}
+              style={[styles.btn2, setting.Swipe == 1 && {marginLeft: '60%'}]}
               source={require('../../Assets4/btnrepeat_normal.png')}
               resizeMode="contain"
             />
           </TouchableOpacity>
-          {!setting.Swipe && (
+          {setting.Swipe == 0 && (
             <TouchableOpacity
               onPress={async () => {
                 setCount(count + 1);
@@ -339,7 +346,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     position: 'absolute',
-    bottom: '9%',
+    bottom: '4%',
     width: '98%',
     flexDirection: 'row',
     justifyContent: 'space-between',

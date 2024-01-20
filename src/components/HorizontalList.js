@@ -39,7 +39,7 @@ const HorizontalList = ({items}) => {
             disapatch(addData(arr));
             console.log(arr);
             disapatch(addCatNext({items, id: parseInt(id) + 1}));
-            navigation.navigate(wr ? 'question' : 'details', {
+            navigation.navigate(wr == 1 ? 'question' : 'details', {
               page: true,
             });
           },
@@ -52,7 +52,7 @@ const HorizontalList = ({items}) => {
       Linking.openURL(
         cat == 'link'
           ? 'https://babyflashcards.com/apps.html'
-          : 'https://play.google.com/store/apps/details?id=com.eFlashEnglish&pli=1',
+          : 'https://play.google.com/store/apps/details?id=com.eFlashPotuguese',
       );
     }
   };

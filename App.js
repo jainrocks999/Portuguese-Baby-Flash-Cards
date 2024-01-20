@@ -4,6 +4,7 @@ import {
   Alert,
   BackHandler,
   StatusBar,
+  LogBox,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import MyStack from './src/components/MyStack';
@@ -83,7 +84,7 @@ const App = () => {
       );
     };
   }, []);
-
+  LogBox.ignoreAllLogs();
   return (
     <Provider store={myStore}>
       <StatusBar backgroundColor="#73cbea" />

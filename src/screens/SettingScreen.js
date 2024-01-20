@@ -41,19 +41,17 @@ import {Addsid} from './ads';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const SettingScreen = props => {
   const pr = props.route.params.pr;
-
   const muted = useSelector(state => state.sound);
   const canlable = useSelector(state => state.cancle);
   const tablet = isTablet();
   const [mute, setMute] = useState(muted);
   const quesion = useSelector(state => state.question);
   const setting = useSelector(state => state.setting);
-  console.log('these are serttings', setting);
   const backSound = useSelector(state => state.backsound);
   const Navigation = useNavigation();
   const dispatch = useDispatch();
   const [togleSwitch, setToggleSwich] = useState({
-    ActualVoice: setting.ActualVoice,
+    ActualSound: setting.ActualSound,
     English: setting.English,
     RandomOrder: setting.RandomOrder,
     Swipe: setting.Swipe,
@@ -62,10 +60,10 @@ const SettingScreen = props => {
   });
   const [questionMode, setquestion] = useState(quesion);
   const handleSwitch = (name, value) => {
-    if (questionMode) {
+    if (questionMode == 1) {
       alert('This setting is disabled when quesion mode is enabled');
     } else {
-      setToggleSwich(prev => ({...prev, [name]: !value}));
+      setToggleSwich(prev => ({...prev, [name]: value == 1 ? 0 : 1}));
     }
   };
   const Save = async () => {
@@ -73,7 +71,7 @@ const SettingScreen = props => {
     dispatch(QuestionMode(questionMode));
     dispatch(addSetting(togleSwitch));
     if (pr === 'question') {
-      if (!questionMode) {
+      if (questionMode == 0) {
         Navigation.dispatch(StackActions.replace('details'));
         dispatch({
           type: 'backSoundFromquestions/playWhenThePage',
@@ -90,7 +88,7 @@ const SettingScreen = props => {
         });
       }
     } else if (pr === 'details') {
-      if (questionMode) {
+      if (questionMode == 1) {
         Navigation.dispatch(StackActions.replace('question'));
         dispatch({
           type: 'backSoundFromquestions/playWhenThePage',
@@ -110,21 +108,19 @@ const SettingScreen = props => {
     }
     await TrackPlayer.reset();
   };
-  //SELECT * FROM tbl_settings
 
   const updateSettings = () => {
     db.transaction(tx => {
       tx.executeSql(
-        'UPDATE  tbl_settings set ActualVoice=?,English=?,' +
-          'Question=?,RandomOrder=?,Swipe=?,Videos=?,' +
-          'Voice=? WHERE id=1',
+        'UPDATE  tbl_settings set ActualSound=?,English=?,' +
+          'Question=?,RandomOrder=?,Swipe=?,' +
+          'Voice=? WHERE _id=1',
         [
-          togleSwitch.ActualVoice,
+          togleSwitch.ActualSound,
           togleSwitch.English,
           questionMode,
           togleSwitch.RandomOrder,
           togleSwitch.Swipe,
-          togleSwitch.Videos,
           togleSwitch.Voice,
         ],
         (tx, results) => {
@@ -140,17 +136,17 @@ const SettingScreen = props => {
   const getPrevSetting = async mode => {
     let res = await AsyncStorage.getItem('setting');
     const newVal = await JSON.parse(res);
-    if (mode == false) {
+    if (mode == 0) {
       setToggleSwich(newVal);
     } else {
       await AsyncStorage.setItem('setting', JSON.stringify(togleSwitch));
       setToggleSwich({
-        Voice: false,
-        Videos: false,
-        ActualVoice: false,
-        RandomOrder: false,
-        English: false,
-        Swipe: false,
+        Voice: 0,
+        Videos: 0,
+        ActualSound: 0,
+        RandomOrder: 0,
+        English: 0,
+        Swipe: 0,
       });
     }
   };
@@ -193,30 +189,30 @@ const SettingScreen = props => {
             source={require('../../Assets4/settingpagebase.png')}>
             <View style={{marginTop: tablet ? '7%' : '8%', marginLeft: '5%'}}>
               <Switch
-                text="Ouestion mode"
+                text="Question mode"
                 style={styles.sw}
                 onPress={async () => {
-                  setquestion(!questionMode);
-                  getPrevSetting(!questionMode);
+                  setquestion(questionMode == 1 ? 0 : 1);
+                  getPrevSetting(questionMode == 1 ? 0 : 1);
                 }}
                 onFocus={() => {
                   console.log('rrrj');
                 }}
-                sw={questionMode}
+                sw={questionMode == 1 ? true : false}
               />
               <Switch
                 text="Voice"
                 style={styles.tx}
                 onPress={() => handleSwitch('Voice', togleSwitch.Voice)}
-                sw={togleSwitch?.Voice}
+                sw={togleSwitch?.Voice == 1 ? true : false}
               />
               <Switch
                 text="Sound"
                 style={styles.tx}
                 onPress={() =>
-                  handleSwitch('ActualVoice', togleSwitch.ActualVoice)
+                  handleSwitch('ActualSound', togleSwitch.ActualSound)
                 }
-                sw={togleSwitch.ActualVoice}
+                sw={togleSwitch.ActualSound == 1 ? true : false}
               />
               <Switch
                 text="Rendom Order"
@@ -224,19 +220,19 @@ const SettingScreen = props => {
                 onPress={() =>
                   handleSwitch('RandomOrder', togleSwitch.RandomOrder)
                 }
-                sw={togleSwitch.RandomOrder}
+                sw={togleSwitch.RandomOrder == 1 ? true : false}
               />
               <Switch
                 text="Swipe"
                 style={styles.tx}
                 onPress={() => handleSwitch('Swipe', togleSwitch.Swipe)}
-                sw={togleSwitch.Swipe}
+                sw={togleSwitch.Swipe == 1 ? true : false}
               />
               <Switch
                 text="English Text"
                 style={styles.tx}
                 onPress={() => handleSwitch('English', togleSwitch.English)}
-                sw={togleSwitch.English}
+                sw={togleSwitch.English == 1 ? true : false}
               />
               {/* <Switch
               text="Video"
@@ -275,7 +271,10 @@ const SettingScreen = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => Save()}>
+          <TouchableOpacity
+            onPress={() => {
+              Save();
+            }}>
             <Image
               style={{height: hp(7), width: wp(35)}}
               source={require('../../Assets4/btnsave_normal.png')}

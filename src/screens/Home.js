@@ -29,16 +29,15 @@ const Home = () => {
   }, []);
   const dispatch = useDispatch();
   const getSettings = () => {
-    db.transaction (tx => {
+    db.transaction(tx => {
       tx.executeSql(
         'SELECT * FROM  tbl_settings',
         [],
-        async(tx, results) => {
+        async (tx, results) => {
           let row = results.rows.item(0);
           dispatch(addSetting(row));
           dispatch(QuestionMode(row.Question));
-          await AsyncStorage.setItem('setting', JSON.stringify(row));
-        
+          console.log(row);
         },
         err => {
           console.log(err);
