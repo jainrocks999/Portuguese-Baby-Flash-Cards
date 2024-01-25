@@ -1,101 +1,108 @@
+import {Platform} from 'react-native';
+import RNFS from 'react-native-fs';
+
+const path = Platform.select({
+  android: '${path}',
+  ios: RNFS.MainBundlePath + '/files/',
+});
 export const WrongVoid = [
   (track1 = {
-    url: 'asset:/files/uhoh.mp3', // Load media from the file system
+    url: `${path}uhoh.mp3`, // Load media from the file system
     title: 'uhoh',
     artist: 'eFlashApps',
     // Load artwork from the file system: //tryagain.mp3'
-    artwork: `asset:/files/uhoh.mp3`,
+    artwork: `${path}uhoh.mp3`,
     duration: null,
   }),
   (track = {
-    url: 'asset:/files/tryagain.mp3', // Load media from the file system
+    url: `${path}tryagain.mp3`, // Load media from the file system
     title: 'tryagain',
     artist: 'eFlashApps',
     // Load artwork from the file system: oopsie.mp3
-    artwork: `asset:/files/tryagain.mp3`,
+    artwork: `${path}tryagain.mp3`,
     duration: null,
   }),
   // asset:/files
   (track3 = {
-    url: 'asset:/files/oopsie.mp3', // Load media from the file system
+    url: `${path}oopsie.mp3`, // Load media from the file system
     title: 'oopsie',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: `asset:/files/oopsie.mp3`,
+    artwork: `${path}oopsie.mp3`,
     duration: null,
   }),
   (track4 = {
-    url: 'asset:/files/youcandoit.mp3', // Load media from the file system
+    url: `${path}youcandoit.mp3`, // Load media from the file system
     title: 'youcandoit',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: `asset:/files/youcandoit.mp3`,
+    artwork: `${path}youcandoit.mp3`,
     duration: null,
   }),
 ];
 export const RightVOid = [
   (track1 = {
-    url: 'asset:/files/excellent.mp3', // Load media from the file system
+    url: `${path}excellent.mp3`, // Load media from the file system
     title: 'excellent',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: `asset:/files/excellent.mp3`,
+    artwork: `${path}excellent.mp3`,
     duration: null,
   }),
   (track = {
-    url: 'asset:/files/fantastic.mp3', // Load media from the file system
+    url: `${path}fantastic.mp3`,
     title: 'fantastic',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: 'asset:/files/fantastic.mp3',
+    artwork: '${path}fantastic.mp3',
     duration: null,
   }),
   (track3 = {
-    url: 'asset:/files/goodanswer.mp3', // Load media from the file system
+    url: `${path}goodanswer.mp3`,
     title: 'goodanswer',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: 'asset:/files/goodanswer.mp3',
+    artwork: '${path}goodanswer.mp3',
     duration: null,
   }),
   (track4 = {
-    url: 'asset:/files/youcandoit.mp3', // Load media from the file system
+    url: `${path}youcandoit.mp3`, // Load media from the file system
     title: 'goodjob',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    //artwork: 'asset:/files/youcandoit.mp3',
+    //artwork: '${path}youcandoit.mp3',
     duration: null,
   }),
   (track5 = {
-    url: 'asset:/files/great.mp3', // Load media from the file system
+    url: `${path}great.mp3`, // Load media from the file system
     title: 'great',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: `asset:/files/great.mp3`,
+    artwork: `${path}great.mp3`,
     duration: null,
   }),
   (track6 = {
-    url: 'asset:/files/marvelous.mp3', // Load media from the file system
+    url: `${path}marvelous.mp3`, // Load media from the file system
     title: 'marvelous',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: 'asset:/files/marvelous.mp3',
+    artwork: '${path}marvelous.mp3',
     duration: null,
   }),
   (track7 = {
-    url: 'asset:/files/sensational.mp3', // Load media from the file system
+    url: `${path}sensational.mp3`, // Load media from the file system
     title: 'sensational',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: 'asset:/files/sensational.mp3',
+    artwork: '${path}sensational.mp3',
     duration: null,
   }),
   (track8 = {
-    url: 'asset:/files/spectacular.mp3', // Load media from the file system
+    url: `${path}spectacular.mp3`, // Load media from the file system
     title: 'spectacular',
     artist: 'eFlashApps',
     // Load artwork from the file system:
-    artwork: 'asset:/files/spectacular.mp3',
+    artwork: '${path}spectacular.mp3',
     duration: null,
   }),
 ];

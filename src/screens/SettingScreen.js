@@ -8,6 +8,7 @@ import {
   BackHandler,
   Alert,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {height, width} from '../components/Diemenstions';
 import React, {useEffect, useState} from 'react';
@@ -174,67 +175,68 @@ const SettingScreen = props => {
     return () => backHandler.remove();
   }, []);
   return (
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../Assets4/setting_screen.png')}>
-      <Header onPress2={() => setMute(!mute)} mute={mute} />
-      <ScrollView>
-        <View
-          style={[
-            styles.settingContainer,
-            {marginTop: tablet ? '25%' : '30%'},
-          ]}>
-          <ImageBackground
-            style={{flex: 1}}
-            source={require('../../Assets4/settingpagebase.png')}>
-            <View style={{marginTop: tablet ? '7%' : '8%', marginLeft: '5%'}}>
-              <Switch
-                text="Question mode"
-                style={styles.sw}
-                onPress={async () => {
-                  setquestion(questionMode == 1 ? 0 : 1);
-                  getPrevSetting(questionMode == 1 ? 0 : 1);
-                }}
-                onFocus={() => {
-                  console.log('rrrj');
-                }}
-                sw={questionMode == 1 ? true : false}
-              />
-              <Switch
-                text="Voice"
-                style={styles.tx}
-                onPress={() => handleSwitch('Voice', togleSwitch.Voice)}
-                sw={togleSwitch?.Voice == 1 ? true : false}
-              />
-              <Switch
-                text="Sound"
-                style={styles.tx}
-                onPress={() =>
-                  handleSwitch('ActualSound', togleSwitch.ActualSound)
-                }
-                sw={togleSwitch.ActualSound == 1 ? true : false}
-              />
-              <Switch
-                text="Rendom Order"
-                style={styles.tx}
-                onPress={() =>
-                  handleSwitch('RandomOrder', togleSwitch.RandomOrder)
-                }
-                sw={togleSwitch.RandomOrder == 1 ? true : false}
-              />
-              <Switch
-                text="Swipe"
-                style={styles.tx}
-                onPress={() => handleSwitch('Swipe', togleSwitch.Swipe)}
-                sw={togleSwitch.Swipe == 1 ? true : false}
-              />
-              <Switch
-                text="English Text"
-                style={styles.tx}
-                onPress={() => handleSwitch('English', togleSwitch.English)}
-                sw={togleSwitch.English == 1 ? true : false}
-              />
-              {/* <Switch
+    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+      <ImageBackground
+        style={{flex: 1}}
+        source={require('../../Assets4/setting_screen.png')}>
+        <Header onPress2={() => setMute(!mute)} mute={mute} />
+        <ScrollView>
+          <View
+            style={[
+              styles.settingContainer,
+              {marginTop: tablet ? '25%' : '30%'},
+            ]}>
+            <ImageBackground
+              style={{flex: 1}}
+              source={require('../../Assets4/settingpagebase.png')}>
+              <View style={{marginTop: tablet ? '7%' : '8%', marginLeft: '5%'}}>
+                <Switch
+                  text="Question mode"
+                  style={styles.sw}
+                  onPress={async () => {
+                    setquestion(questionMode == 1 ? 0 : 1);
+                    getPrevSetting(questionMode == 1 ? 0 : 1);
+                  }}
+                  onFocus={() => {
+                    console.log('rrrj');
+                  }}
+                  sw={questionMode == 1 ? true : false}
+                />
+                <Switch
+                  text="Voice"
+                  style={styles.tx}
+                  onPress={() => handleSwitch('Voice', togleSwitch.Voice)}
+                  sw={togleSwitch?.Voice == 1 ? true : false}
+                />
+                <Switch
+                  text="Sound"
+                  style={styles.tx}
+                  onPress={() =>
+                    handleSwitch('ActualSound', togleSwitch.ActualSound)
+                  }
+                  sw={togleSwitch.ActualSound == 1 ? true : false}
+                />
+                <Switch
+                  text="Rendom Order"
+                  style={styles.tx}
+                  onPress={() =>
+                    handleSwitch('RandomOrder', togleSwitch.RandomOrder)
+                  }
+                  sw={togleSwitch.RandomOrder == 1 ? true : false}
+                />
+                <Switch
+                  text="Swipe"
+                  style={styles.tx}
+                  onPress={() => handleSwitch('Swipe', togleSwitch.Swipe)}
+                  sw={togleSwitch.Swipe == 1 ? true : false}
+                />
+                <Switch
+                  text="English Text"
+                  style={styles.tx}
+                  onPress={() => handleSwitch('English', togleSwitch.English)}
+                  sw={togleSwitch.English == 1 ? true : false}
+                />
+                {/* <Switch
               text="Video"
               style={styles.tx}
               onPress={() => {
@@ -242,57 +244,58 @@ const SettingScreen = props => {
               }}
               sw={togleSwitch.Videos}
             /> */}
-            </View>
-          </ImageBackground>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginHorizontal: '10%',
-          }}>
-          <TouchableOpacity
-            onPress={async () => {
-              if (pr == 'home') {
-                Navigation.reset({index: 0, routes: [{name: 'home'}]});
-              } else {
-                await TrackPlayer.reset();
-                dispatch({
-                  type: 'backSoundFromquestions/playWhenThePage',
-                  fromDetails: togleSwitch.Voice,
-                  fromQuestion: quesion,
-                });
-                Navigation.goBack();
-              }
+              </View>
+            </ImageBackground>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginHorizontal: '10%',
             }}>
-            <Image
-              style={{height: hp(7), width: wp(35)}}
-              source={require('../../Assets4/btncancel_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              Save();
-            }}>
-            <Image
-              style={{height: hp(7), width: wp(35)}}
-              source={require('../../Assets4/btnsave_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                if (pr == 'home') {
+                  Navigation.reset({index: 0, routes: [{name: 'home'}]});
+                } else {
+                  await TrackPlayer.reset();
+                  dispatch({
+                    type: 'backSoundFromquestions/playWhenThePage',
+                    fromDetails: togleSwitch.Voice,
+                    fromQuestion: quesion,
+                  });
+                  Navigation.goBack();
+                }
+              }}>
+              <Image
+                style={{height: hp(7), width: wp(35)}}
+                source={require('../../Assets4/btncancel_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Save();
+              }}>
+              <Image
+                style={{height: hp(7), width: wp(35)}}
+                source={require('../../Assets4/btnsave_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+        <View style={{position: 'relative', bottom: 0}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
         </View>
-      </ScrollView>
-      <View style={{position: 'relative', bottom: 0}}>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
@@ -301,7 +304,7 @@ const styles = StyleSheet.create({
   settingContainer: {
     borderWidth: 2,
     marginTop: '40%',
-    height: height / 1.9,
+    height: height / 2,
     margin: '5%',
   },
   sw: {

@@ -81,7 +81,7 @@ const NextScreen = ({route}) => {
 
   const [mute, setMut] = useState(muted);
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
       <ImageBackground
         style={{flex: 1}}
         source={require('../../Assets4/setting_screen.png')}>

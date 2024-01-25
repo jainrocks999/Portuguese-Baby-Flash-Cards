@@ -16,6 +16,7 @@ import {
   AdEventType,
 } from 'react-native-google-mobile-ads';
 import {Addsid} from './src/screens/ads';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const App = () => {
   const appState = useRef(AppState.currentState);
   const interstitial = InterstitialAd.createForAdRequest(Addsid.Interstitial, {

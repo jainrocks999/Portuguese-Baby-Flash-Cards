@@ -6,6 +6,7 @@ import {
   BackHandler,
   Alert,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -202,97 +203,99 @@ const QuestionPage = props => {
     navigation.dispatch(StackActions.push('setting', {pr: 'question'}));
   };
   return (
-    <View style={{height: '100%', width: '100%'}}>
-      <View style={{flex: 1, backgroundColor: 'white'}}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={async () => {
-              await TrackPlayer.reset();
+    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+      <View style={{height: '100%', width: '100%'}}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={async () => {
+                await TrackPlayer.reset();
 
-              navigation.reset({index: 0, routes: [{name: 'home'}]});
+                navigation.reset({index: 0, routes: [{name: 'home'}]});
+              }}>
+              <Image
+                style={styles.icon}
+                resizeMode="contain"
+                source={require('../../Assets4/btnhome_normal.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => sound()}>
+              <Image
+                style={styles.btn2}
+                source={require('../../Assets4/btnrepeat_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                gotoSettings();
+              }}>
+              <Image
+                style={styles.icon}
+                source={require('../../Assets4/btnsetting_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              marginTop: tablet ? '5%' : '-1%',
+              alignSelf: 'center',
+              alignItems: 'center',
+              paddingLeft: '2%',
             }}>
-            <Image
-              style={styles.icon}
-              resizeMode="contain"
-              source={require('../../Assets4/btnhome_normal.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => sound()}>
-            <Image
-              style={styles.btn2}
-              source={require('../../Assets4/btnrepeat_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={async () => {
-              gotoSettings();
-            }}>
-            <Image
-              style={styles.icon}
-              source={require('../../Assets4/btnsetting_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            marginTop: tablet ? '5%' : '5%',
-            alignSelf: 'center',
-            alignItems: 'center',
-            paddingLeft: '2%',
-          }}>
-          <FlatList
-            data={rendomdat}
-            numColumns={2}
-            keyExtractor={item => item.ID}
-            renderItem={({item, index}) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    up(index);
-                    if (backSound.fromQuestion) {
-                      disapatch({
-                        type: 'backSoundFromquestions/playWhenThePage',
-                        fromDetails: false,
-                        fromQuestion: false,
-                      });
-                    }
-                  }}
-                  style={[!tablet ? styles.mobileView : styles.tabView]}
-                  disabled={right || wrong.includes(index) ? true : false}>
-                  <Image
-                    style={{height: '100%', width: '100%'}}
-                    source={{uri: `${path}${item.Image}`}}
-                    resizeMode="contain"
-                  />
-                  {wrong.includes(index) ? (
+            <FlatList
+              data={rendomdat}
+              numColumns={2}
+              keyExtractor={item => item.ID}
+              renderItem={({item, index}) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      up(index);
+                      if (backSound.fromQuestion) {
+                        disapatch({
+                          type: 'backSoundFromquestions/playWhenThePage',
+                          fromDetails: false,
+                          fromQuestion: false,
+                        });
+                      }
+                    }}
+                    style={[!tablet ? styles.mobileView : styles.tabView]}
+                    disabled={right || wrong.includes(index) ? true : false}>
                     <Image
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        position: 'absolute',
-                      }}
-                      // resizeMode="contain"
-                      source={require('../../Assets4/wrongselection.png')}
+                      style={{height: '100%', width: '100%'}}
+                      source={{uri: `${path}${item.Image}`}}
+                      resizeMode="contain"
                     />
-                  ) : null}
-                </TouchableOpacity>
-              );
+                    {wrong.includes(index) ? (
+                      <Image
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                          position: 'absolute',
+                        }}
+                        // resizeMode="contain"
+                        source={require('../../Assets4/wrongselection.png')}
+                      />
+                    ) : null}
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
+        </View>
+        <View style={{bottom: 0, borderWidth: 0, backgroundColor: 'white'}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
             }}
           />
         </View>
       </View>
-      <View style={{bottom: 0, borderWidth: 0, backgroundColor: 'white'}}>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

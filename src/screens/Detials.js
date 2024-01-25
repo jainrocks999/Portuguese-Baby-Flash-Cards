@@ -7,6 +7,7 @@ import {
   BackHandler,
   Alert,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -210,132 +211,135 @@ const Detials = props => {
   };
 
   return (
-    <GestureRecognizer
-      style={{flex: 1}}
-      onSwipeLeft={() =>
-        setting.Swipe == 1 && count != data.length && setCount(count + 1)
-      }
-      onSwipeRight={() =>
-        (setting.Swipe == 1) == 1 && count > 0 && setCount(count - 1)
-      }>
-      <View style={{flex: 1, backgroundColor: 'white'}}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={async () => {
-              await TrackPlayer.reset();
+    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+      <GestureRecognizer
+        style={{flex: 1}}
+        onSwipeLeft={() =>
+          setting.Swipe == 1 && count != data.length && setCount(count + 1)
+        }
+        onSwipeRight={() =>
+          (setting.Swipe == 1) == 1 && count > 0 && setCount(count - 1)
+        }>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={async () => {
+                await TrackPlayer.reset();
 
-              navigation.reset({index: 0, routes: [{name: 'home'}]});
-            }}>
-            <Image
-              style={styles.icon}
-              source={require('../../Assets4/btnhome_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <View
-            style={{
-              alignItems: 'center',
-              height: '100%',
-              justifyContent: 'center',
-            }}>
-            <Text style={styles.Titel}>
-              {setting.English ? Title.portugues : ''}
-            </Text>
-            <Text style={[styles.Titel, {fontSize: wp(4), fontWeight: '500'}]}>
-              {setting.English ? Title.english : ''}
-            </Text>
-          </View>
-          <TouchableOpacity
-            onPress={async () => {
-              await TrackPlayer.reset();
-              disapatch({
-                type: 'backSoundFromquestions/playWhenThePage',
-                fromDetails: false,
-                fromQuestion: false,
-              });
-              navigation.dispatch(
-                StackActions.push('setting', {pr: 'details'}),
-              );
-            }}>
-            <Image
-              style={styles.icon}
-              source={require('../../Assets4/btnsetting_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imgContainer}>
-          {Images && (
-            <Image
+                navigation.reset({index: 0, routes: [{name: 'home'}]});
+              }}>
+              <Image
+                style={styles.icon}
+                source={require('../../Assets4/btnhome_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <View
               style={{
-                height: height / 1.45,
-                width: '100%',
                 alignItems: 'center',
-              }}
-              resizeMode="contain"
-              source={{uri: Images}}
-            />
-          )}
-        </View>
-        <View style={styles.btnContainer}>
-          {setting.Swipe == 0 && (
+                height: '100%',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.Titel}>
+                {setting.English ? Title.portugues : ''}
+              </Text>
+              <Text
+                style={[styles.Titel, {fontSize: wp(4), fontWeight: '500'}]}>
+                {setting.English ? Title.english : ''}
+              </Text>
+            </View>
             <TouchableOpacity
               onPress={async () => {
-                setCount(count - 1);
-              }}
-              disabled={count <= 0 ? true : false}>
+                await TrackPlayer.reset();
+                disapatch({
+                  type: 'backSoundFromquestions/playWhenThePage',
+                  fromDetails: false,
+                  fromQuestion: false,
+                });
+                navigation.dispatch(
+                  StackActions.push('setting', {pr: 'details'}),
+                );
+              }}>
               <Image
-                style={[
-                  styles.btn,
-                  {
-                    height: tablet ? hp(6) : hp(5.6),
-                    width: tablet ? wp(31) : wp(35),
-                  },
-                ]}
-                resizeMode="contain"
-                source={require('../../Assets4/btnprevious_normal.png')}
-              />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            onPress={() => {
-              paly();
-            }}>
-            <Image
-              style={[styles.btn2, setting.Swipe == 1 && {marginLeft: '60%'}]}
-              source={require('../../Assets4/btnrepeat_normal.png')}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          {setting.Swipe == 0 && (
-            <TouchableOpacity
-              onPress={async () => {
-                setCount(count + 1);
-              }}
-              disabled={count === data.length ? true : false}>
-              <Image
-                style={[
-                  styles.btn,
-                  {
-                    height: tablet ? hp(6) : hp(5.6),
-                    width: tablet ? wp(31) : wp(35),
-                  },
-                ]}
-                source={require('../../Assets4/btnnext_normal.png')}
+                style={styles.icon}
+                source={require('../../Assets4/btnsetting_normal.png')}
                 resizeMode="contain"
               />
             </TouchableOpacity>
-          )}
+          </View>
+          <View style={styles.imgContainer}>
+            {Images && (
+              <Image
+                style={{
+                  height: height / 1.45,
+                  width: '100%',
+                  alignItems: 'center',
+                }}
+                resizeMode="contain"
+                source={{uri: Images}}
+              />
+            )}
+          </View>
+          <View style={styles.btnContainer}>
+            {setting.Swipe == 0 && (
+              <TouchableOpacity
+                onPress={async () => {
+                  setCount(count - 1);
+                }}
+                disabled={count <= 0 ? true : false}>
+                <Image
+                  style={[
+                    styles.btn,
+                    {
+                      height: tablet ? hp(6) : hp(5.6),
+                      width: tablet ? wp(31) : wp(35),
+                    },
+                  ]}
+                  resizeMode="contain"
+                  source={require('../../Assets4/btnprevious_normal.png')}
+                />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              onPress={() => {
+                paly();
+              }}>
+              <Image
+                style={[styles.btn2, setting.Swipe == 1 && {marginLeft: '60%'}]}
+                source={require('../../Assets4/btnrepeat_normal.png')}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            {setting.Swipe == 0 && (
+              <TouchableOpacity
+                onPress={async () => {
+                  setCount(count + 1);
+                }}
+                disabled={count === data.length ? true : false}>
+                <Image
+                  style={[
+                    styles.btn,
+                    {
+                      height: tablet ? hp(6) : hp(5.6),
+                      width: tablet ? wp(31) : wp(35),
+                    },
+                  ]}
+                  source={require('../../Assets4/btnnext_normal.png')}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
-      <GAMBannerAd
-        unitId={Addsid.BANNER}
-        sizes={[BannerAdSize.FULL_BANNER]}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
-    </GestureRecognizer>
+        <GAMBannerAd
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </GestureRecognizer>
+    </SafeAreaView>
   );
 };
 
