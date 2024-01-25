@@ -6,6 +6,7 @@ import {
   View,
   BackHandler,
   Alert,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,12 +29,17 @@ import {
   BannerAdSize,
 } from 'react-native-google-mobile-ads';
 import {Addsid} from './ads';
+import RNFS from 'react-native-fs';
 
 const adUnit = Addsid.Interstitial;
 const requestOption = {
   requestNonPersonalizedAdsOnly: true,
   // keywords: ['fashion', 'clothing'],
 };
+const path = Platform.select({
+  android: 'asset:/files/',
+  ios: RNFS.MainBundlePath + '/files/',
+});
 const Detials = props => {
   const tablet = isTablet();
   const disapatch = useDispatch();
@@ -57,7 +63,10 @@ const Detials = props => {
     return () => backHandler.remove();
   }, []);
   const [Images, setImages] = useState('');
-  const [Title, setTitle] = useState();
+  const [Title, setTitle] = useState({
+    english: '',
+    portugues: '',
+  });
   const [count, setCount] = useState(0);
   const [Music, setMusic] = useState();
   const navigation = useNavigation();
@@ -131,25 +140,22 @@ const Detials = props => {
       console.log(newData[count]);
 
       ActualSound = newData[count].ActualSound;
-      Imagess = `asset:/files/${newData[count].Image}`;
+      Imagess = `${path}${newData[count].Image}`;
       Titel = newData[count].Title;
       track = {
-        url: `asset:/files/${newData[count].Sound?.replace(/[- ]/g, '_')}`, // Load media from the file system
+        url: `${path}${newData[count].Sound?.replace(/[- ]/g, '_')}`, // Load media from the file system
         title: Titel,
         artist: 'eFlashApps',
         // Load artwork from the file system:
-        artwork: `asset:/files/${newData[count].Sound?.replace(/ /g, '_')}`,
+        artwork: `${path}${newData[count].Sound?.replace(/ /g, '_')}`,
         duration: null,
       };
       track2 = {
-        url: `asset:/files/${newData[count].ActualSound?.replace(
-          /[- ]/g,
-          '_',
-        )}`, // Load media from the file system
+        url: `${path}${newData[count].ActualSound?.replace(/[- ]/g, '_')}`, // Load media from the file system
         title: Titel,
         artist: 'eFlashApps',
         // Load artwork from the file system:
-        artwork: `asset:/files/${newData[count].Sound?.replace(/ /g, '_')}`,
+        artwork: `${path}${newData[count].Sound?.replace(/ /g, '_')}`,
         duration: null,
       };
     } else if (count < 0) {
@@ -159,7 +165,10 @@ const Detials = props => {
       navigation.dispatch(StackActions.replace('next'));
     }
     setImages(Imagess);
-    setTitle(Titel);
+    setTitle({
+      english: Titel,
+      portugues: newData[count]?.LenguageText,
+    });
 
     if (ActualSound && setting.ActualSound == 1 && setting.Voice == 1) {
       setMusic([track2, track]);
@@ -223,7 +232,19 @@ const Detials = props => {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text style={styles.Titel}>{setting.English == 1 ? Title : ''}</Text>
+          <View
+            style={{
+              alignItems: 'center',
+              height: '100%',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.Titel}>
+              {setting.English ? Title.portugues : ''}
+            </Text>
+            <Text style={[styles.Titel, {fontSize: wp(4), fontWeight: '500'}]}>
+              {setting.English ? Title.english : ''}
+            </Text>
+          </View>
           <TouchableOpacity
             onPress={async () => {
               await TrackPlayer.reset();
@@ -334,7 +355,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   Titel: {
-    fontSize: wp(6),
+    fontSize: wp(5.5),
     fontWeight: 'bold',
     color: 'white',
     alignSelf: 'center',

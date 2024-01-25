@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   BackHandler,
   Alert,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,12 +24,12 @@ import {
 } from 'react-native-responsive-screen';
 import {isTablet} from 'react-native-device-info';
 import {
-  TestIds,
   InterstitialAd,
   AdEventType,
   GAMBannerAd,
   BannerAdSize,
 } from 'react-native-google-mobile-ads';
+import RNFS from 'react-native-fs';
 import {Addsid} from './ads';
 const authId = Addsid.Interstitial;
 const requestOption = {
@@ -53,6 +54,10 @@ const QuestionPage = props => {
 
     return () => backHandler.remove();
   }, []);
+  const path = Platform.select({
+    android: 'asset:/files/',
+    ios: RNFS.MainBundlePath + '/files/',
+  });
 
   const navigation = useNavigation();
   const backSound = useSelector(state => state.backsound);
@@ -84,14 +89,14 @@ const QuestionPage = props => {
     }
     let arr = [
       (track = {
-        url: 'asset:/files/clickon.mp3',
+        url: `${path}clickon.mp3`,
         title: item.Title,
         artist: 'eFlashApps',
 
         duration: null,
       }),
       (track2 = {
-        url: `asset:/files/${item.Sound}`,
+        url: `${path}${item.Sound}`,
         title: item.Title,
         artist: 'eFlashApps',
 
@@ -104,7 +109,6 @@ const QuestionPage = props => {
     }
 
     setSong(arr);
-    console.log('called');
   };
 
   const [rendomdat, setrandomDat] = useState(data.slice(0, 4));
@@ -259,7 +263,7 @@ const QuestionPage = props => {
                   disabled={right || wrong.includes(index) ? true : false}>
                   <Image
                     style={{height: '100%', width: '100%'}}
-                    source={{uri: `asset:/files/${item.Image}`}}
+                    source={{uri: `${path}${item.Image}`}}
                     resizeMode="contain"
                   />
                   {wrong.includes(index) ? (
