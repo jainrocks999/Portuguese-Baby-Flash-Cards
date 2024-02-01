@@ -179,7 +179,14 @@ const NextScreen = ({route}) => {
             </Text>
           </View>
         </View>
-        <View style={{position: 'absolute', bottom: 0}}>
+        <View
+          style={{
+            position: 'relative',
+
+            alignItems: 'center',
+
+            bottom: 0,
+          }}>
           <GAMBannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}

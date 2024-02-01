@@ -177,6 +177,7 @@ const SettingScreen = props => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
       <ImageBackground
+        resizeMode="cover"
         style={{flex: 1}}
         source={require('../../Assets4/setting_screen.png')}>
         <Header onPress2={() => setMute(!mute)} mute={mute} />
@@ -285,7 +286,7 @@ const SettingScreen = props => {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <View style={{position: 'relative', bottom: 0}}>
+        <View style={{position: 'relative', alignItems: 'center', bottom: 0}}>
           <GAMBannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}

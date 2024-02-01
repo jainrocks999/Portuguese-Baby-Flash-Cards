@@ -1,8 +1,10 @@
-import {View, Text, Image} from 'react-native';
-import React, {startTransition, useEffect} from 'react';
+import {View, Text, Image, Dimensions} from 'react-native';
+import React, {useEffect} from 'react';
 import {useNavigation, StackActions} from '@react-navigation/native';
 
 const SplashScreen = () => {
+  const {height, width} = Dimensions.get('window');
+
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
@@ -10,9 +12,10 @@ const SplashScreen = () => {
     }, 2000);
   });
   return (
-    <View style={{flex: 1, marginHorizontal: 1}}>
+    <View style={{height: height, width: width, marginHorizontal: 1}}>
       <Image
         style={{height: '100%', width: '100%'}}
+        resizeMode="stretch"
         source={require('../../Assets4/splash.png')}
       />
     </View>

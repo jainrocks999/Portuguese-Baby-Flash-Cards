@@ -53,30 +53,38 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
-      <ImageBackground
-        style={{flex: 1}}
-        source={require('../../Assets4/bgnewcategory.png')}>
-        <Header
-          onPress2={() => setMute(!mute)}
-          mute={mute}
-          onPress={() => {
-            Navigation.navigate('setting', {pr: 'home'});
+    // <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+    <ImageBackground
+      style={{flex: 1}}
+      source={require('../../Assets4/bgnewcategory.png')}>
+      <Header
+        onPress2={() => setMute(!mute)}
+        mute={mute}
+        onPress={() => {
+          Navigation.navigate('setting', {pr: 'home'});
+        }}
+        home
+      />
+      <HorizontalList items={MyData} />
+      <View
+        style={{
+          position: 'relative',
+          width: '100%',
+          bottom: 0,
+          borderWidth: 1,
+          alignItems: 'center',
+        }}>
+        <GAMBannerAd
+          style={{width: '100%'}}
+          unitId={Addsid.BANNER}
+          sizes={[BannerAdSize.FULL_BANNER]}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
           }}
-          home
         />
-        <HorizontalList items={MyData} />
-        <View style={{position: 'relative', bottom: 0}}>
-          <GAMBannerAd
-            unitId={Addsid.BANNER}
-            sizes={[BannerAdSize.FULL_BANNER]}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-          />
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+      </View>
+    </ImageBackground>
+    // </SafeAreaView>
   );
 };
 

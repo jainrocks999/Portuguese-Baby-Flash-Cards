@@ -305,7 +305,7 @@ const Detials = props => {
                 paly();
               }}>
               <Image
-                style={[styles.btn2, setting.Swipe == 1 && {marginLeft: '60%'}]}
+                style={[styles.btn2, setting.Swipe == 1 && {marginLeft: '62%'}]}
                 source={require('../../Assets4/btnrepeat_normal.png')}
                 resizeMode="contain"
               />
@@ -331,13 +331,15 @@ const Detials = props => {
             )}
           </View>
         </View>
-        <GAMBannerAd
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
+        <View style={{bottom: 0, width: '100%', alignItems: 'center'}}>
+          <GAMBannerAd
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
       </GestureRecognizer>
     </SafeAreaView>
   );

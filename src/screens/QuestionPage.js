@@ -285,7 +285,15 @@ const QuestionPage = props => {
             />
           </View>
         </View>
-        <View style={{bottom: 0, borderWidth: 0, backgroundColor: 'white'}}>
+        <View
+          style={{
+            bottom: 0,
+
+            alignItems: 'center',
+
+            borderWidth: 0,
+            backgroundColor: 'white',
+          }}>
           <GAMBannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
