@@ -27,7 +27,7 @@ import {isTablet} from 'react-native-device-info';
 import {
   InterstitialAd,
   AdEventType,
-  GAMBannerAd,
+  BannerAd,
   BannerAdSize,
 } from 'react-native-google-mobile-ads';
 import RNFS from 'react-native-fs';
@@ -203,7 +203,7 @@ const QuestionPage = props => {
     navigation.dispatch(StackActions.push('setting', {pr: 'question'}));
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'grey'}}>
       <View style={{height: '100%', width: '100%'}}>
         <View style={{flex: 1, backgroundColor: 'white'}}>
           <View style={styles.header}>
@@ -294,7 +294,7 @@ const QuestionPage = props => {
             borderWidth: 0,
             backgroundColor: 'white',
           }}>
-          <GAMBannerAd
+          <BannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
             requestOptions={{

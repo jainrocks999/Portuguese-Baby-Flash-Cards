@@ -26,7 +26,7 @@ import {
   TestIds,
   InterstitialAd,
   AdEventType,
-  GAMBannerAd,
+  BannerAd,
   BannerAdSize,
 } from 'react-native-google-mobile-ads';
 import {Addsid} from './ads';
@@ -211,7 +211,7 @@ const Detials = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'grey'}}>
       <GestureRecognizer
         style={{flex: 1}}
         onSwipeLeft={() =>
@@ -332,7 +332,7 @@ const Detials = props => {
           </View>
         </View>
         <View style={{bottom: 0, width: '100%', alignItems: 'center'}}>
-          <GAMBannerAd
+          <BannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
             requestOptions={{

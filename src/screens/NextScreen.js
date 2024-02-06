@@ -25,11 +25,7 @@ const db = SQLite.openDatabase({
   name: 'eFlashPotuguese.db',
   createFromLocation: 1,
 });
-import {
-  GAMBannerAd,
-  BannerAdSize,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
 import {Addsid} from './ads';
 const NextScreen = ({route}) => {
   const navigation = useNavigation();
@@ -181,13 +177,13 @@ const NextScreen = ({route}) => {
         </View>
         <View
           style={{
-            position: 'relative',
+            position: 'absolute',
 
             alignItems: 'center',
 
             bottom: 0,
           }}>
-          <GAMBannerAd
+          <BannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
             requestOptions={{

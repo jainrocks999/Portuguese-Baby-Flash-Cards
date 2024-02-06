@@ -31,13 +31,7 @@ const db = SQLite.openDatabase({
   createFromLocation: 1,
 });
 import {isTablet} from 'react-native-device-info';
-import {
-  TestIds,
-  InterstitialAd,
-  AdEventType,
-  GAMBannerAd,
-  BannerAdSize,
-} from 'react-native-google-mobile-ads';
+import {BannerAd, BannerAdSize} from 'react-native-google-mobile-ads';
 import {Addsid} from './ads';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const SettingScreen = props => {
@@ -287,7 +281,7 @@ const SettingScreen = props => {
           </View>
         </ScrollView>
         <View style={{position: 'relative', alignItems: 'center', bottom: 0}}>
-          <GAMBannerAd
+          <BannerAd
             unitId={Addsid.BANNER}
             sizes={[BannerAdSize.FULL_BANNER]}
             requestOptions={{

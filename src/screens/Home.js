@@ -14,11 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 var SQLite = require('react-native-sqlite-storage');
 import {addSetting} from '../reduxToolkit/Slice2';
 import {QuestionMode} from '../reduxToolkit/Slice3';
-import {
-  GAMBannerAd,
-  BannerAdSize,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+import {BannerAd, BannerAdSize, TestIds} from 'react-native-google-mobile-ads';
 import {Addsid} from './ads';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const db = SQLite.openDatabase({
@@ -30,6 +26,7 @@ const Home = () => {
   const muted = useSelector(state => state.sound);
   const Navigation = useNavigation();
   const [mute, setMute] = useState(muted);
+  console.log('thjis sis adds id', Addsid);
   useEffect(() => {
     getSettings();
   }, []);
@@ -53,38 +50,38 @@ const Home = () => {
   };
 
   return (
-    // <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
-    <ImageBackground
-      style={{flex: 1}}
-      source={require('../../Assets4/bgnewcategory.png')}>
-      <Header
-        onPress2={() => setMute(!mute)}
-        mute={mute}
-        onPress={() => {
-          Navigation.navigate('setting', {pr: 'home'});
-        }}
-        home
-      />
-      <HorizontalList items={MyData} />
-      <View
-        style={{
-          position: 'relative',
-          width: '100%',
-          bottom: 0,
-          borderWidth: 1,
-          alignItems: 'center',
-        }}>
-        <GAMBannerAd
-          style={{width: '100%'}}
-          unitId={Addsid.BANNER}
-          sizes={[BannerAdSize.FULL_BANNER]}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
+    <SafeAreaView style={{flex: 1, backgroundColor: '#73cbea'}}>
+      <ImageBackground
+        style={{flex: 1}}
+        source={require('../../Assets4/bgnewcategory.png')}>
+        <Header
+          onPress2={() => setMute(!mute)}
+          mute={mute}
+          onPress={() => {
+            Navigation.navigate('setting', {pr: 'home'});
           }}
+          home
         />
-      </View>
-    </ImageBackground>
-    // </SafeAreaView>
+        <HorizontalList items={MyData} />
+        <View
+          style={{
+            position: 'relative',
+            width: '100%',
+            bottom: 0,
+            borderWidth: 1,
+            alignItems: 'center',
+          }}>
+          <BannerAd
+            style={{width: '100%'}}
+            unitId={Addsid.BANNER}
+            sizes={[BannerAdSize.FULL_BANNER]}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
