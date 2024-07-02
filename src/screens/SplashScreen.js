@@ -19,8 +19,8 @@ const SplashScreen = () => {
     }, 2000);
   });
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#abdbe3'}}>
-      <StatusBar backgroundColor={'#abdbe3'} />
+    <SafeAreaView style={{flex: 1, backgroundColor: '#daf5ff'}}>
+      <StatusBar backgroundColor={'#daf5ff'} />
       <Image
         style={{height: '100%', width: '100%'}}
         resizeMode="stretch"

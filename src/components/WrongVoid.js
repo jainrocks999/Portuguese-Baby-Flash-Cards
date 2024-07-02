@@ -2,7 +2,7 @@ import {Platform} from 'react-native';
 import RNFS from 'react-native-fs';
 
 const path = Platform.select({
-  android: '${path}',
+  android: 'asset:/files/',
   ios: RNFS.MainBundlePath + '/files/',
 });
 export const WrongVoid = [

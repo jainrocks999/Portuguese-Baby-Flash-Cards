@@ -90,9 +90,7 @@ def reactNativeArchitectures() {
 
 android {
     ndkVersion rootProject.ext.ndkVersion
-
     compileSdkVersion rootProject.ext.compileSdkVersion
-
     namespace "com.eFlashPotuguese"
     defaultConfig {
         applicationId "com.eFlashPotuguese"
@@ -101,7 +99,6 @@ android {
         versionCode 7
         versionName "1.6"
         missingDimensionStrategy "store", "play"
-
     }
 
     splits {
@@ -161,7 +158,6 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation project(':react-native-sqlite-storage')
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")

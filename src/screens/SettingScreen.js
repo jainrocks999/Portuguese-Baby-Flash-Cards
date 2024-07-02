@@ -296,7 +296,7 @@ const SettingScreen = props => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginHorizontal: '10%',
-              marginTop: hasPurchased ? '8%' : 0,
+              marginTop: hasPurchased ? '8%' : -1,
             }}>
             <TouchableOpacity
               onPress={async () => {
@@ -331,7 +331,7 @@ const SettingScreen = props => {
           </View>
         </ScrollView>
         {!hasPurchased && (
-          <View style={{position: 'relative', alignItems: 'center', bottom: 0}}>
+          <View style={{position: 'absolute', alignItems: 'center', bottom: 0}}>
             <BannerAd
               unitId={Addsid.BANNER}
               sizes={[BannerAdSize.ANCHORED_ADAPTIVE_BANNER]}
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
   settingContainer: {
     borderWidth: 2,
     marginTop: '40%',
-    height: isTablet() ? height / 1.9 : height / 2,
+    height: isTablet() ? height / 1.9 : height / 2.1,
     margin: '5%',
   },
   sw: {
